@@ -13,9 +13,21 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="revealjs/css/reveal.min.css">
-		<link rel="stylesheet" href="revealjs/css/theme/simple.css" id="theme">
+		<link rel="stylesheet" href="revealjs/css/reveal.css">
+		<link rel="stylesheet" href="revealjs/css/theme/night.css" id="theme">
 		<style type="text/css">
+            @font-face {
+                font-family: 'Myriad Pro Regular';
+                font-style: normal;
+                font-weight: normal;
+                src: local('Myriad Pro Regular'), url('fonts/MYRIADPRO-REGULAR.woff') format('woff');
+            }
+            @font-face {
+                font-family: 'Myriad Pro Semibold';
+                font-style: normal;
+                font-weight: normal;
+                src: local('Myriad Pro Semibold'), url('fonts/MYRIADPRO-SEMIBOLD.woff') format('woff');
+            }
 			.reveal section img.no-border {
 				border: 0;
 				box-shadow: none;
@@ -34,6 +46,12 @@
 
 			#lucas-icons a {
 				display: block;
+                color: rgb(75, 115, 153);
+			}
+
+			#lucas-icons a:hover {
+				display: block;
+                color: rgb(150, 150, 150);
 			}
 
 			.oops {
@@ -51,11 +69,33 @@
 			li.show-and-hide.current-fragment {
 				display: list-item;
 			}
-            h1, h2 {
+            .reveal h1, .reveal h2 {
                 margin-bottom: 50px;
+                color: rgb(75, 115, 153);
             }
             img.illustration {
                 display: block;
+            }
+            .reveal {
+                font-family: "Myriad Pro Regular", Calibri, sans-serif;
+                color: rgb(150, 150, 150);
+                background-color: rgb(255, 255, 255);
+                font-size: 1.4em;
+            }
+            .reveal .controls div.navigate-up, .reveal .controls div.navigate-up.enabled {
+                border-bottom-color: rgb(75, 115, 153);
+            }
+            .reveal .controls div.navigate-down, .reveal .controls div.navigate-down.enabled {
+                border-top-color: rgb(75, 115, 153);
+            }
+            .reveal .controls div.navigate-left, .reveal .controls div.navigate-left.enabled {
+                border-right-color: rgb(75, 115, 153);
+            }
+            .reveal .controls div.navigate-right, .reveal .controls div.navigate-right.enabled {
+                border-left-color: rgb(75, 115, 153);
+            }
+            .reveal .progress span {
+                background: rgb(75, 115, 153);
             }
 		</style>
 
@@ -101,7 +141,7 @@
                             <li class="fragment">Second Talk sur la qualité logicielle : environ 3h de préparation</li>
                             <li class="fragment">Talk SUPINFO sur les métiers de l'informatique (45 minutes) : environ 3h45 de préparation</li>
                         </ul>
-                        <!-- TODO : ajouter un graph JS ici -->
+                        <canvas id="graph-time" class="fragment"></canvas>
                     </section>
                     <section>
                         <h2>Bilan de la préparation de ce talk</h2>
@@ -141,8 +181,8 @@
                             <li class="fragment">Choisir un outil simple pour les slides</li>
                             <li class="fragment">Choisir un thème simple et efficace</li>
                             <li class="fragment">Ajouter quelques visuels</li>
-                            <li class="fragment">Mettre au moins un lolcat <img class="fragment illustration" src="img/lolcat-illustration.jpg"></li>
                             <li class="fragment">Adapter le thème si on a le temps</li>
+                            <li class="fragment">Mettre au moins un lolcat <img class="fragment illustration" src="img/lolcat-illustration.jpg"></li>
                         </ul>
                     </section>
                     <section>
@@ -195,7 +235,7 @@
 		</div>
 
 		<script src="revealjs/lib/js/head.min.js"></script>
-		<script src="revealjs/js/reveal.min.js"></script>
+		<script src="revealjs/js/reveal.js"></script>
 
 		<script>
 
@@ -207,7 +247,27 @@
 
 		</script>
 
-        <script src="chartjs/Chart.js"></script>
+        <script src="chartjs/Chart.min.js"></script>
+        <script>
+            var context = document.getElementById('graph-time').getContext('2d');
+            var data = {
+                labels: ['SPL', 'QA', 'Métiers IT'],
+                datasets: [
+                    {
+                        label: 'Temps de préparation par minute',
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: [10 * 60 / 10, 3 * 60 / 10, 3.75 * 60 / 45]
+                    }
+                ]
+            };
+            var options = {};
+            var chart = new Chart(context).Line(data, options);
+        </script>
 
 	</body>
 </html>
